@@ -1,0 +1,59 @@
+#lazybox_overlay{
+  background: black;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.3;
+  z-index: 100;
+}
+
+#lazybox{
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  background-color: #fff;
+  color: #7F7F7F;
+  padding: 20px;
+  border: 1px solid #ccc;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  min-width: 200px;
+  min-height: 100px;
+  border-radius: 10px;
+  -moz-box-shadow: 0 1px 5px #333;
+  -webkit-box-shadow: 0 1px 5px #333;
+  box-shadow: 0 1px 5px #333;
+  z-index: 101;
+}
+
+a#lazybox_close {
+  color: white;
+  font: bold 24px/100% Arial, Helvetica, sans-serif;
+  float: right;
+  margin-top: -35px;
+  margin-right: -35px;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid white;
+  width: 24px;
+  height: 24px;
+  background: black;
+  border-radius: 20px;
+  -moz-box-shadow: 0 1px 5px #333;
+  -webkit-box-shadow: 0 1px 5px #333;
+  box-shadow: 0 1px 5px #333;
+}
+
+a#lazybox_close:hover { color: black; border-color: black; background: white; }
+
+a#lazybox_close.ie {
+  border: none;
+  margin-top: -21px;
+  margin-right: -21px;
+  background: white;
+  color: gray;
+}
+a#lazybox_close.ie:hover {color: black;}
