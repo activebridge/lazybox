@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = ["sexmcs@gmail.com"]
   s.homepage    = "https://github.com/alex-galushka/lazybox"
   s.summary     = "Use LazyBox for popup windows with Rails"
-  s.description = "This is hight perfomance modal dialogs for your Rails application."
+  s.description = "This is high perfomance modal dialogs for your Rails application."
   s.platform    = Gem::Platform::RUBY
 
   s.files         = `git ls-files`.split("\n")
