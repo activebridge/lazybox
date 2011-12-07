@@ -5,7 +5,6 @@
   bottom: 0px;
   left: 0px;
   right: 0px;
-  opacity: 0.3;
   z-index: 100;
 }
 
@@ -31,7 +30,7 @@
 
 a#lazybox_close {
   color: white;
-  font: bold 24px/100% Arial, Helvetica, sans-serif;
+  font: bold 24px/100% Arial, Helvetica, sans-serif !important;
   float: right;
   margin-top: -35px;
   margin-right: -35px;
@@ -51,9 +50,10 @@ a#lazybox_close:hover { color: black; border-color: black; background: white; }
 
 a#lazybox_close.ie {
   border: none;
-  margin-top: -21px;
-  margin-right: -21px;
+  margin-top: -20px;
+  margin-right: -20px;
   background: white;
   color: gray;
 }
-a#lazybox_close.ie:hover {color: black;}
+
+a#lazybox_close.ie:hover { color: black; }
