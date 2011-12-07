@@ -4,7 +4,7 @@ Lazybox is a jQuery-based, lightbox which can display entire remote pages.
 Use lazybox with rails 3.1 asset pipeline.
 
 LazyBox implemented using only with css and jquery without images.
-This is hight perfomance modal dialogs. All unpacked files take only 2.5 kb.
+This is high perfomance modal dialogs. All unpacked files take only 3 kb.
 You never find simplest solution for popup windows.
 
 # Installation
@@ -33,6 +33,8 @@ Include in your `app/assets/javascripts/application.js`:
 
     $(document).ready(function() {
       $('a[rel*=lazybox]').lazybox();
+      // or with options
+      $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, cssClass: 'class'});
     });
 
 In your view:
@@ -69,8 +71,21 @@ or you can set before_filter that will disable layout for ajax requests:
     - if @model.errors.any?
       $('#lazybox_body').html("#{escape_javascript(render :partial => 'form')}");
     - else
-      $('a#lazybox_close').click();
+      $(document).trigger('close.lazybox')
       window.location.reload();
+
+# Options
+
+    overlay:  true|false //default true. Show lazybox overlay.
+    esc:      true|false //default true. Close lazybox on esc press.
+    close:    true|false //default true. Show close lazybox button.
+    modal:    true|false //default true. Close lazybox on overlay click.
+    opacity:  0.6 //default 0.3. Set opacity for lazybox overlay.
+    cssClass:    'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
+
+# Events
+
+    $(document).trigger('close.lazybox')
 
 #
 
