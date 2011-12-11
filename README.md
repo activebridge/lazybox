@@ -1,11 +1,11 @@
 # LazyBox
 
-Lazybox is a jQuery-based, lightbox which can display entire remote pages.
-Use lazybox with rails 3.1 asset pipeline.
+Lazybox is a jQuery-based, lightbox that can display entire remote pages.
+Use lazybox with rails 3.1 assets pipeline.
 
-LazyBox implemented using only with css and jquery without images.
+LazyBox implemented using only css and jquery without images.
 This is high perfomance modal dialogs. All unpacked files take only 3 kb.
-You never find simplest solution for popup windows.
+This is simplest solution for popup windows.
 
 # Installation
 
