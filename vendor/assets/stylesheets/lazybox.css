@@ -1,59 +1,62 @@
 #lazybox_overlay{
   background: black;
-  position: fixed;
-  top: 0px;
   bottom: 0px;
+  display: none;
   left: 0px;
+  position: fixed;
   right: 0px;
+  top: 0px;
   z-index: 100;
 }
 
 #lazybox{
-  position: absolute;
-  top: 10%;
-  left: 30%;
   background-color: #fff;
-  color: #7F7F7F;
-  padding: 20px;
   border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px #333;
+  color: #7F7F7F;
+  display: none;
+  left: 49%;
+  padding: 20px;
+  position: absolute;
+  top: 49%;
+  z-index: 101;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   -khtml-border-radius: 10px;
-  min-width: 200px;
-  min-height: 100px;
-  border-radius: 10px;
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
-  box-shadow: 0 1px 5px #333;
-  z-index: 101;
 }
 
 a#lazybox_close {
+  background: black;
+  border: 2px solid white;
+  border-radius: 20px;
+  box-shadow: 0 1px 5px #333;
   color: white;
-  font: bold 24px/100% Arial, Helvetica, sans-serif !important;
+  cursor: pointer;
   float: right;
+  font: bold 26px/100% Arial, Helvetica, sans-serif !important;
+  height: 25px;
   margin-top: -35px;
   margin-right: -35px;
-  cursor: pointer;
   text-align: center;
-  border: 2px solid white;
-  width: 24px;
-  height: 24px;
-  background: black;
-  border-radius: 20px;
+  width: 25px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
-  box-shadow: 0 1px 5px #333;
 }
 
-a#lazybox_close:hover { color: black; border-color: black; background: white; }
+a#lazybox_close:hover { background: white; border-color: black; color: black; }
 
 a#lazybox_close.ie {
-  border: none;
-  margin-top: -20px;
-  margin-right: -20px;
   background: white;
+  border: none;
   color: gray;
+  margin-right: -20px;
+  margin-top: -20px;
 }
 
 a#lazybox_close.ie:hover { color: black; }

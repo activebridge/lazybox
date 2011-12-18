@@ -15,5 +15,6 @@ Gem::Specification.new do |s|
   s.require_path  = "lib"
 
   s.add_development_dependency "rails",   "~> 3.1"
+  s.add_development_dependency "jquery-rails"
 end
 
