@@ -90,7 +90,15 @@ you can use lazybox for displaing images
 # Events
 
     $(document).trigger('close.lazybox')
+    $(document).trigger('center.lazybox')
 
-#
+
+# Browser Compatibility:
+
+ie7 +(for ie7 you have to set width of lazybox `#lazybox { width: 400px; }`)
+Chrome
+Firefox
+Opera
+Safari
 
 Copyright© Alex Galushka

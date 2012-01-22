@@ -60,4 +60,5 @@
   }
 
   $(document).bind('close.lazybox', function(){ close_lazybox() });
+  $(document).bind('center.lazybox', function(){ center_lazybox() });
 })(jQuery);

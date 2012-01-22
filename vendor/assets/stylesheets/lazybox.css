@@ -1,4 +1,4 @@
-#lazybox_overlay{
+#lazybox_overlay {
   background: black;
   bottom: 0px;
   display: none;
@@ -9,7 +9,7 @@
   z-index: 100;
 }
 
-#lazybox{
+#lazybox {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
