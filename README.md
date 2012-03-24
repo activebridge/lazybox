@@ -101,7 +101,7 @@ Include in your `app/assets/javascripts/application.js`:
 $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox();
   // or with options
-  $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, klass: 'class'});
+  $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, klass: 'class'});
 });
 ```
 
