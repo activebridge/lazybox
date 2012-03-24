@@ -1,99 +1,112 @@
-# LazyBox
+LazyBox
+=======
 
-Lazybox is a jQuery-based, lightbox that can display entire remote pages and images.
-Use lazybox with rails 3.1 assets pipeline.
+Lazybox is a jQuery-based, lightbox that can display entire remote pages, images and confirmation dialogs.
+Replace standard rails confirmations with lazybox just added several rows to your project. Use lazybox with rails assets pipeline.
 
 LazyBox implemented using only css and jquery without images.
-This is high perfomance modal dialogs. All unpacked files take only 4 kb.
-This is simplest solution for popup windows.
+This is high perfomance modal dialogs. All unpacked files take only 5 kb.
+This is simplest solution for popup windows and custom confirmation dialogs.
 
-# Installation
+Installing
+------------
 
 Add it to your Gemfile:
-
+```ruby
     gem 'lazybox'
-
+```
 Then run `bundle install` to update your application's bundle.
 
 Include in your `app/assets/stylesheets/application.css`:
-
+```css
     /*
      * ...
      *= require lazybox
      * ...
      */
-
-And in `app/assets/javascripts/application.js`:
-
+```
+And in `application.js`:
+```javascript
     //= require lazybox
-
-# Usage
-
-Include in your `app/assets/javascripts/application.js`:
-
-    $(document).ready(function() {
-      $('a[rel*=lazybox]').lazybox();
-      // or with options
-      $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, cssClass: 'class'});
-    });
-
-In your view:
-
-    link_to 'Lazybox', new_model_path, :rel => :lazybox
-
+```
+Usage
+-----
+###Remote pages
+Usual remote link:
+```ruby
+  link_to 'Lazybox', new_model_path, :remote => true
+```
 In your controller:
+```ruby
+  def new
+    @model = Model.new
+  end
 
-    def new
-      @model = Model.new
-      respond_to do |format|
-        format.js { render :layout => false }
-      end
-    end
-
-    def create
-      @model = Model.create(params[:model])
-    end
-
-or you can set before_filter that will disable layout for ajax requests:
-
-    before_filter proc { |controller| (controller.action_has_layout = false) if controller.request.xhr? }
-
-    def new
-      @model = Model.new
-    end
-
-    def create
-      @model = Model.create(params[:model])
-    end
+  def create
+    @model = Model.new(params[:model])
+    render :action => :new unless @model.save
+  end
+```
+`new.js.haml`
+```ruby
+  $.lazybox("#{escape_javascript(render :partial => 'form')}");
+```
 
 `create.js.haml`
+```ruby
+  $.lazybox.close()
+  window.location.reload()
+```
+###Confirmations
+And in `application.js`:
+```javascript
+  $.rails.allowAction = $.lazybox.confirm;
+```
 
-    - if @model.errors.any?
-      $('#lazybox_body').html("#{escape_javascript(render :partial => 'form')}");
-    - else
-      $(document).trigger('close.lazybox')
-      window.location.reload();
+for options use global lazybox settings:
+```javascript
+  $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false, esc: true, close: true, modal: true, opacity: 0.3}
+```
 
-you can use lazybox for displaing images
-
-    - link_to 'Image', image.url, :rel => :lazybox
-
-# Options
+###Images
+```ruby
+  link_to 'Image', image.url, :rel => :lazybox
+```
+Include in your `app/assets/javascripts/application.js`:
+```javascript
+$(document).ready(function() {
+  $('a[rel*=lazybox]').lazybox();
+  // or with options
+  $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, klass: 'class'});
+});
+```
+Options
+-------
 
     overlay:  true|false //default true. Show lazybox overlay.
     esc:      true|false //default true. Close lazybox on esc press.
     close:    true|false //default true. Show close lazybox button.
     modal:    true|false //default true. Close lazybox on overlay click.
     opacity:  0.6 //default 0.3. Set opacity for lazybox overlay.
-    cssClass:    'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
+    klass:    'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
+    //confirmation options
+    cancelText: //default 'Cancel'. Cancel button text.
+    submitText: //default 'Ok'. Confirm button text.
+    cancelClass: //default 'button'. Cancel button class.
+    submitClass: //default 'button'. Confirm button class.
 
-# Events
+Events
+------
 
+    $.lazybox.show()
+    $.lazybox.close()
+    $.lazybox.center()
     $(document).trigger('close.lazybox')
     $(document).trigger('center.lazybox')
 
 
-# Browser Compatibility:
+Browser Compatibility
+---------------------
 
 ie7 +(for ie7 you have to set width of lazybox `#lazybox { width: 400px; }`)
 Chrome

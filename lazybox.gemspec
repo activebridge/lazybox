@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = ["sexmcs@gmail.com"]
   s.homepage    = "https://github.com/alex-galushka/lazybox"
   s.summary     = "Use LazyBox for popup windows with Rails"
-  s.description = "This is high perfomance modal dialogs for your Rails application."
+  s.description = "Lazybox is a jQuery-based, lightbox that can display entire remote pages, images and confirmation dialogs. Replace standard rails confirmations with lazybox just added several rows to your project. Use lazybox with rails assets pipeline."
   s.platform    = Gem::Platform::RUBY
 
   s.files         = `git ls-files`.split("\n")
