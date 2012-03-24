@@ -70,6 +70,8 @@ In your controller:
   $.lazybox.close()
   window.location.reload()
 ```
+![LazyBox](http://i.imgur.com/9dmY8.png)
+
 ###Confirmations
 
 And in `application.js`:
@@ -78,11 +80,15 @@ And in `application.js`:
   $.rails.allowAction = $.lazybox.confirm;
 ```
 
+![LazyBox](http://i.imgur.com/WmOqj.png)
+
 for options use global lazybox settings:
 
 ```javascript
   $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false}
 ```
+
+![LazyBox](http://i.imgur.com/CTlV4.png)
 
 ###Images
 
@@ -98,6 +104,8 @@ $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, klass: 'class'});
 });
 ```
+
+![LazyBox](http://i.imgur.com/tywzm.png)
 
 Options
 -------
