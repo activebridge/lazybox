@@ -12,31 +12,37 @@ Installing
 ------------
 
 Add it to your Gemfile:
-```ruby
+
     gem 'lazybox'
-```
+
 Then run `bundle install` to update your application's bundle.
 
-Include in your `app/assets/stylesheets/application.css`:
-```css
+Include in your `application.css`:
+
     /*
      * ...
      *= require lazybox
      * ...
      */
-```
+
 And in `application.js`:
+
 ```javascript
     //= require lazybox
 ```
+
 Usage
 -----
+
 ###Remote pages
 Usual remote link:
+
 ```ruby
   link_to 'Lazybox', new_model_path, :remote => true
 ```
+
 In your controller:
+
 ```ruby
   def new
     @model = Model.new
@@ -47,32 +53,40 @@ In your controller:
     render :action => :new unless @model.save
   end
 ```
+
 `new.js.haml`
+
 ```ruby
   $.lazybox("#{escape_javascript(render :partial => 'form')}");
 ```
 
 `create.js.haml`
+
 ```ruby
   $.lazybox.close()
   window.location.reload()
 ```
 ###Confirmations
+
 And in `application.js`:
+
 ```javascript
   $.rails.allowAction = $.lazybox.confirm;
 ```
 
 for options use global lazybox settings:
+
 ```javascript
-  $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false, esc: true, close: true, modal: true, opacity: 0.3}
+  $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false}
 ```
 
 ###Images
+
 ```ruby
   link_to 'Image', image.url, :rel => :lazybox
 ```
 Include in your `app/assets/javascripts/application.js`:
+
 ```javascript
 $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox();
@@ -80,6 +94,7 @@ $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, opacity: 0.3, klass: 'class'});
 });
 ```
+
 Options
 -------
 
