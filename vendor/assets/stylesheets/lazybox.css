@@ -12,7 +12,7 @@
 #lazybox {
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 1px 5px #333;
   color: #7F7F7F;
   display: none;
@@ -21,9 +21,6 @@
   position: absolute;
   top: 49%;
   z-index: 101;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -khtml-border-radius: 10px;
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
 }
@@ -38,13 +35,10 @@ a#lazybox_close {
   float: right;
   font: bold 26px/100% Arial, Helvetica, sans-serif !important;
   height: 25px;
-  margin-top: -35px;
-  margin-right: -35px;
+  margin-top: -37px;
+  margin-right: -37px;
   text-align: center;
   width: 25px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -khtml-border-radius: 20px;
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
 }
@@ -60,3 +54,5 @@ a#lazybox_close.ie {
 }
 
 a#lazybox_close.ie:hover { color: black; }
+#lazybox .lazy_buttons { margin-top: 15px; text-align: right; }
+#lazybox.confirm { max-width: 300px; }

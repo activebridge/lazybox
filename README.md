@@ -74,6 +74,8 @@ In your controller:
 
 ###Confirmations
 
+You can replace standard rails confirmations with lazybox
+
 And in `application.js`:
 
 ```javascript
