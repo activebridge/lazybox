@@ -13,17 +13,21 @@ Installing
 
 Add it to your Gemfile:
 
+```ruby
     gem 'lazybox'
+```
 
 Then run `bundle install` to update your application's bundle.
 
 Include in your `application.css`:
 
+```css
     /*
      * ...
      *= require lazybox
      * ...
      */
+```
 
 And in `application.js`:
 
