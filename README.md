@@ -109,6 +109,15 @@ $(document).ready(function() {
 
 ![LazyBox](http://i.imgur.com/r6pfy.png)
 
+If there are more than one link to image you can click on image in the lazybox to show the next one
+
+```haml
+  = link_to image.url, :rel => :lazybox do
+    = image_tag image.url, :height => 100
+  = link_to image2.url, :rel => :lazybox do
+    = image_tag image2.url, :height => 100
+```
+
 Options
 -------
 
@@ -137,7 +146,7 @@ Events
 Browser Compatibility
 ---------------------
 
-ie7 +(for ie7 you have to set width of lazybox `#lazybox { width: 400px; }`)
+ie7 +
 Chrome
 Firefox
 Opera
