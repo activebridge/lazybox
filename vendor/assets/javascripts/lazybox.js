@@ -22,27 +22,27 @@
                var message = element.data('confirm')
                if (!message) { return true }
                $.lazybox.show('<p>'+message+'</p><div class="lazy_buttons"><div>', {klass: 'confirm'})
-               element.clone().attr({class: options.submitClass}).removeAttr('data-confirm').text(options.submitText).appendTo('.lazy_buttons')
+               element.clone().attr('class', options.submitClass).removeAttr('data-confirm').text(options.submitText).appendTo('.lazy_buttons')
                $('.lazy_buttons').append(' ')
-               $('<a>', {href: '', text: options.cancelText, class: options.cancelClass}).appendTo('.lazy_buttons')
+               $('<a>', {href: '', text: options.cancelText, 'class': options.cancelClass}).appendTo('.lazy_buttons')
              }
   });
   $.fn.lazybox = function(options){
     var imagesRegexp = new RegExp('\\.(png|jpg|jpeg|gif)(\\?.*)?$', 'i')
     this.live('click', function(e){
-      var href = $(this).attr('href')
+      var a = $(this), href = a.attr('href')
       e.preventDefault()
       if (href.match(imagesRegexp)){
         var img = new Image()
-        img.onload = function(){ $.lazybox.show('<img src="' + img.src + '" />', options) }
+        img.onload = function(element){
+          $.lazybox.show('<img title="Click to see next image" src="' + img.src + '" />', options)
+          $('#lazybox img').bind('click', function(){
+            (a.is(':last-child')) ? nextLink = a.siblings('a[rel*=lazybox]:first') : nextLink = a.next('a[rel*=lazybox]:first')
+            $('#lazybox').fadeOut(function(){ nextLink.click() })
+          })
+        }
         img.src = href
-      } else{
-        $.ajax({
-          url: href,
-          success: function(data){ $.lazybox.show(data, options) },
-          error: function(){ $.lazybox.close() }
-        })
-      }
+      } else $.ajax({url: href, success: function(data){ $.lazybox.show(data, options) }, error: function(){ $.lazybox.close() }})
     });
   }
 
@@ -57,13 +57,11 @@
     if (options.klass) { $('#lazybox').removeClass().addClass(options.klass) } else { $('#lazybox').removeClass() }
     if (options.close) {
       $('#lazybox:not(:has(#lazybox_close))').prepend($("<a id='lazybox_close' title='close'>×</a>"))
-      $('#lazybox_close').live('click', function(){ $.lazybox.close() })
       if ($.browser.msie) $('#lazybox_close').addClass('ie')
     } else $('#lazybox_close').remove()
-    if (!options.modal) { $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) } else { $('#lazybox_overlay').unbind() }
     if (!options.modal && options.overlay) { $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) } else { $('#lazybox_overlay').unbind() }
     $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close() })
-    $('#lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
+    $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
   }
 
   $(document).bind('close.lazybox', function(){ $.lazybox.close() })
