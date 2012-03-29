@@ -2,6 +2,7 @@ LazyBox
 =======
 
 [Live Demo](http://lazybox.herokuapp.com/)
+
 [Demo Source](https://github.com/alex-galushka/lazybox_demo)
 
 Lazybox is a jQuery-based, lightbox that can display entire remote pages, images and confirmation dialogs.
