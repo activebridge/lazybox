@@ -1,5 +1,5 @@
 (function($){
-  var defaults = {overlay: true, esc: true, close: true, modal: true, opacity: 0.3, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button'}
+  var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button'}
   $.lazybox = function(html){ $.lazybox.show(html) }
   $.extend($.lazybox, {
     settings: $.extend({}, defaults),
@@ -35,11 +35,9 @@
       if (href.match(imagesRegexp)){
         var img = new Image()
         img.onload = function(element){
-          $.lazybox.show('<img title="Click to see next image" src="' + img.src + '" />', options)
-          $('#lazybox img').bind('click', function(){
-            (a.is(':last-child')) ? nextLink = a.siblings('a[rel*=lazybox]:first') : nextLink = a.next('a[rel*=lazybox]:first')
-            $('#lazybox').fadeOut(function(){ nextLink.click() })
-          })
+          $.lazybox.show('<img class="lazy_img" src="' + img.src + '" />', options)
+          nextLink = a.siblings('a[rel*=lazybox]:first') || a.next('a[rel*=lazybox]:first')
+          if (!nextLink.length == 0) $('#lazybox img').bind('click', function(){ $('#lazybox').fadeOut(function(){ nextLink.click() }) })
         }
         img.src = href
       } else $.ajax({url: href, success: function(data){ $.lazybox.show(data, options) }, error: function(){ $.lazybox.close() }})
@@ -48,22 +46,21 @@
 
   function init(options){
     var options = $.extend($.extend({}, defaults), $.lazybox.settings, options)
-    $('body:not(:has(#lazybox))').append("<div id='lazybox'><div id='lazybox_body'></div></div>")
     if (options.overlay) {
       $('body:not(:has(#lazybox_overlay))').append("<div id='lazybox_overlay'></div>")
-      $('#lazybox_overlay').css({filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity})
-      $('#lazybox_overlay').fadeIn(500)
+      $('#lazybox_overlay').css({filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity}).fadeIn(500)
     }
+    $('body:not(:has(#lazybox))').append("<div id='lazybox'><div id='lazybox_body'></div></div>")
     if (options.klass) { $('#lazybox').removeClass().addClass(options.klass) } else { $('#lazybox').removeClass() }
     if (options.close) {
       $('#lazybox:not(:has(#lazybox_close))').prepend($("<a id='lazybox_close' title='close'>×</a>"))
-      if ($.browser.msie) $('#lazybox_close').addClass('ie')
+      if (!$.browser.msie && options.niceClose) $('#lazybox_close').addClass('nice')
     } else $('#lazybox_close').remove()
     if (!options.modal && options.overlay) { $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) } else { $('#lazybox_overlay').unbind() }
     $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close() })
     $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
   }
 
-  $(document).bind('close.lazybox', function(){ $.lazybox.close() })
-  $(document).bind('center.lazybox', function(){ $.lazybox.center() })
+  $(document).bind('close.lazybox', function(){ $.lazybox.close(); console.warn('will be deprecated') })
+  $(document).bind('center.lazybox', function(){ $.lazybox.center(); console.warn('will be deprecated') })
 })(jQuery);

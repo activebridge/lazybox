@@ -25,34 +25,36 @@
 }
 
 a#lazybox_close {
+  background: transparent;
+  border: none;
+  color: gray;
+  cursor: pointer;
+  font: bold 26px/100% Arial, Helvetica, sans-serif !important;
+  height: 25px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 25px;
+}
+
+a#lazybox_close:hover { color: black; }
+
+a#lazybox_close.nice {
   background: black;
   border: 2px solid white;
   border-radius: 20px;
   box-shadow: 0 1px 5px #333;
   color: white;
-  cursor: pointer;
-  font: bold 26px/100% Arial, Helvetica, sans-serif !important;
-  height: 25px;
-  position: absolute;
   right: -17px;
-  text-align: center;
   top: -17px;
-  width: 25px;
   -moz-border-radius: 20px;
   -moz-box-shadow: 0 1px 5px #333;
   -webkit-box-shadow: 0 1px 5px #333;
 }
+a#lazybox_close.nice:hover { background: white; border-color: black; color: black; }
 
-a#lazybox_close:hover { background: white; border-color: black; color: black; }
+img.lazy_img { cursor: pointer; }
 
-a#lazybox_close.ie {
-  background: transparent;
-  border: none;
-  color: gray;
-  right: 0;
-  top: 0;
-}
-
-a#lazybox_close.ie:hover { color: black; }
 #lazybox .lazy_buttons { margin-top: 15px; text-align: right; }
 #lazybox.confirm { max-width: 300px; }

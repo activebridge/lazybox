@@ -94,8 +94,8 @@ for options use global lazybox settings:
 
 ###Images
 
-```ruby
-  link_to 'Image', image.url, :rel => :lazybox
+```haml
+  - link_to 'Image', image.url, :rel => :lazybox
 ```
 Include in your `app/assets/javascripts/application.js`:
 
@@ -121,17 +121,18 @@ If there are more than one link to image you can click on image in the lazybox t
 Options
 -------
 
-    overlay:  true|false //default true. Show lazybox overlay.
-    esc:      true|false //default true. Close lazybox on esc press.
-    close:    true|false //default true. Show close lazybox button.
-    modal:    true|false //default true. Close lazybox on overlay click.
-    opacity:  0.6 //default 0.3. Set opacity for lazybox overlay.
-    klass:    'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
+    overlay:    true|false //default true. Show lazybox overlay
+    esc:        true|false //default true. Close lazybox on esc press
+    close:      true|false //default true. Show close lazybox button
+    niceClose:  true|false //default true. Show nice close button like in fancybox(IE always shows simple close button)
+    modal:      true|false //default true. Close lazybox on overlay click
+    opacity:    0.6 //default 0.3. Set opacity for lazybox overlay
+    klass:      'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
     //confirmation options
-    cancelText: //default 'Cancel'. Cancel button text.
-    submitText: //default 'Ok'. Confirm button text.
-    cancelClass: //default 'button'. Cancel button class.
-    submitClass: //default 'button'. Confirm button class.
+    cancelText:   //default 'Cancel'. Cancel button text
+    submitText:   //default 'Ok'. Confirm button text
+    cancelClass:  //default 'button'. Cancel button class
+    submitClass:  //default 'button'. Confirm button class
 
 Events
 ------
@@ -139,8 +140,8 @@ Events
     $.lazybox.show()
     $.lazybox.close()
     $.lazybox.center()
-    $(document).trigger('close.lazybox')
-    $(document).trigger('center.lazybox')
+    $(document).trigger('close.lazybox') //Will be deprecated in next version.  Use $.lazybox.close()
+    $(document).trigger('center.lazybox') //Will be deprecated in next version.  Use $.lazybox.center()
 
 
 Browser Compatibility
