@@ -28,9 +28,8 @@
              }
   });
   $.fn.lazybox = function(options){
-    var imagesRegexp = new RegExp('\\.(png|jpg|jpeg|gif)(\\?.*)?$', 'i')
     this.live('click', function(e){
-      var a = $(this), href = a.attr('href')
+      var a = $(this), href = a.attr('href'), imagesRegexp = new RegExp('\\.(png|jpg|jpeg|gif)(\\?.*)?$', 'i')
       e.preventDefault()
       if (href.match(imagesRegexp)){
         var img = new Image()
@@ -50,17 +49,16 @@
       $('body:not(:has(#lazybox_overlay))').append("<div id='lazybox_overlay'></div>")
       $('#lazybox_overlay').css({filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity}).fadeIn(500)
     }
-    $('body:not(:has(#lazybox))').append("<div id='lazybox'><div id='lazybox_body'></div></div>")
-    if (options.klass) { $('#lazybox').removeClass().addClass(options.klass) } else { $('#lazybox').removeClass() }
+    $('body:not(:has(#lazybox))').append("<div id='lazybox'><div id='lazybox_body'></div></div>");
+    (options.klass) ? $('#lazybox').attr('class', options.klass) : $('#lazybox').removeClass()
     if (options.close) {
-      $('#lazybox:not(:has(#lazybox_close))').prepend($("<a id='lazybox_close' title='close'>×</a>"))
-      if (!$.browser.msie && options.niceClose) $('#lazybox_close').addClass('nice')
+      $('#lazybox:not(:has(#lazybox_close))').prepend($("<a id='lazybox_close' title='close'></a>"));
+      (options.closeImg) ? $('#lazybox_close').attr('class', 'img').text('') : $('#lazybox_close').removeClass().text('×')
+      if (!$.browser.msie && options.niceClose && !options.closeImg) $('#lazybox_close').attr('class', 'nice')
     } else $('#lazybox_close').remove()
-    if (!options.modal && options.overlay) { $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) } else { $('#lazybox_overlay').unbind() }
+    (!options.modal && options.overlay) ? $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) : $('#lazybox_overlay').unbind()
     $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close() })
     $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
   }
 
-  $(document).bind('close.lazybox', function(){ $.lazybox.close(); console.warn('will be deprecated') })
-  $(document).bind('center.lazybox', function(){ $.lazybox.center(); console.warn('will be deprecated') })
 })(jQuery);
