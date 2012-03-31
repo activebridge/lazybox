@@ -55,7 +55,7 @@
       $('#lazybox:not(:has(#lazybox_close))').prepend($("<a id='lazybox_close' title='close'></a>"));
       (options.closeImg) ? $('#lazybox_close').attr('class', 'img').text('') : $('#lazybox_close').removeClass().text('×')
       if (!$.browser.msie && options.niceClose && !options.closeImg) $('#lazybox_close').attr('class', 'nice')
-    } else $('#lazybox_close').remove()
+    } else $('#lazybox_close').remove();
     (!options.modal && options.overlay) ? $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) : $('#lazybox_overlay').unbind()
     $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close() })
     $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
