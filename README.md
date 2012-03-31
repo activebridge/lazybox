@@ -116,19 +116,10 @@ $(document).ready(function() {
 If there are more than one link to image you can click on image in the lazybox to show the next one
 
 ```haml
-.images
-  = link_to image.url do
-    = image_tag image.url, :height => 100
-  = link_to image2.url do
-    = image_tag image2.url, :height => 100
-```
-
-`application.js`:
-
-```javascript
-$(document).ready(function() {
-  $('.images a').lazybox({overlay: true, esc: true, close: true, modal: true, klass: 'class'});
-});
+= link_to image.url, :rel => :lazybox do
+  = image_tag image.url, :height => 100
+= link_to image2.url, :rel => :lazybox do
+  = image_tag image2.url, :height => 100
 ```
 
 Custom close image
