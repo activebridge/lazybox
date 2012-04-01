@@ -34,11 +34,11 @@
       if (href.match(imagesRegexp)){
         var img = new Image()
         img.onload = function(element){
-          $.lazybox.show('<img class="lazy_img" src="' + img.src + '" />', options);
+          $.lazybox.show(img, options);
           (a.is(':last-child')) ? nextLink = a.siblings('a[rel*=lazybox]:first') : nextLink = a.next('a[rel*=lazybox]:first')
           if (!nextLink.length == 0) $('#lazybox img').bind('click', function(){ $('#lazybox').fadeOut(function(){ nextLink.click() }) })
         }
-        img.src = href
+        $(img).attr({'class': 'lazy_img', src: href})
       } else $.ajax({url: href, success: function(data){ $.lazybox.show(data, options) }, error: function(){ $.lazybox.close() }})
     });
   }
