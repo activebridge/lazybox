@@ -1,6 +1,6 @@
 (function($){
   var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button'}
-  $.lazybox = function(html){ $.lazybox.show(html) }
+  $.lazybox = function(html, options){ $.lazybox.show(html, options) }
   $.extend($.lazybox, {
     settings: $.extend({}, defaults),
     show: function(content, options){
@@ -14,8 +14,8 @@
              $('#lazybox_overlay').fadeOut(500)
            },
     center: function(){
-              var x = (($(window).height() - $('#lazybox').outerHeight()) / 2) + $(window).scrollTop()
-              $('#lazybox').css({ top: ((x < 0) ? 20 : x), left:(($(window).width() - $('#lazybox').outerWidth()) / 2) + $(window).scrollLeft() })
+              var y = (($(window).height() - $('#lazybox').outerHeight()) / 2) + $(window).scrollTop()
+              $('#lazybox').css({ top: ((y < 0) ? 20 : y), left:(($(window).width() - $('#lazybox').outerWidth()) / 2) + $(window).scrollLeft() })
             },
     confirm: function(element){
                var options = $.extend(defaults, $.lazybox.settings)
