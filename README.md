@@ -65,7 +65,7 @@ end
 `new.js.haml`
 
 ```haml
-$.lazybox("#{escape_javascript(render :partial => 'form')}");
+$.lazybox("#{j(render :partial => 'form')}");
 ```
 
 `create.js.haml`
@@ -92,6 +92,12 @@ for options use global lazybox settings:
 
 ```javascript
 $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false}
+```
+
+or instance settings
+
+```javascript
+$.lazybox("<div>It works!</div>",{onTop: true, opacity: 0.7, modal: false})
 ```
 
 ![LazyBox](http://i.imgur.com/2gW9R.png)
