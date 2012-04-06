@@ -1,19 +1,20 @@
 (function($){
-  var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, onTop: false, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button'}, effect, y
+  var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, onTop: false, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button', speed: 300}, effect, y
   $.lazybox = function(html, options){ $.lazybox.show(html, options) }
   $.extend($.lazybox, {
     settings: $.extend({}, defaults),
     show: function(content, options){
-            var onTop = init(options).onTop
+            var options = init(options)
             $('#lazybox_body').html(content)
-            $.lazybox.center(onTop);
-            (onTop) ? effect = 'slideDown' : effect = 'fadeIn'
-            $('#lazybox')[effect](300)
+            $.lazybox.center(options.onTop);
+            (options.onTop) ? effect = 'slideDown' : effect = 'fadeIn'
+            $('#lazybox')[effect](options.speed)
+            return options
           },
-    close: function(){
+    close: function(speed){
              ($('#lazybox').position().top == 0) ? effect = 'slideUp' : effect = 'fadeOut'
-             $('#lazybox')[effect](300)
-             $('#lazybox_overlay').fadeOut(500)
+             $('#lazybox')[effect](speed)
+             $('#lazybox_overlay').fadeOut(speed+200)
            },
     center: function(onTop){
               (onTop) ? y = 0 : y = (($(window).height()-$('#lazybox').outerHeight())/2)+$(window).scrollTop()
@@ -36,12 +37,12 @@
       if (href.match(imagesRegexp)){
         var img = new Image(), nextLink
         img.onload = function(element){
-          $.lazybox.show(img, options);
+          options = $.lazybox.show(img, options);
           (a.is(':last-child')) ? nextLink = a.siblings('a[rel*=lazybox]:first') : nextLink = a.next('a[rel*=lazybox]:first')
-          if (!nextLink.length == 0) $('#lazybox img').bind('click', function(){ $('#lazybox').fadeOut(function(){ nextLink.click() }) })
+          if (!nextLink.length == 0) $('#lazybox img').bind('click', function(){ $('#lazybox').fadeOut(options.speed, function(){ nextLink.click() }) })
         }
         $(img).attr({'class': 'lazy_img', src: href})
-      } else $.ajax({url: href, success: function(data){ $.lazybox.show(data, options) }, error: function(){ $.lazybox.close() }})
+      } else $.ajax({url: href, success: function(data){ $.lazybox.show(data, options) }, error: function(){ $.lazybox.close(300) }})
     });
   }
 
@@ -49,7 +50,7 @@
     var options = $.extend($.extend({}, defaults), $.lazybox.settings, options)
     if (options.overlay) {
       $('body:not(:has(#lazybox_overlay))').append("<div id='lazybox_overlay'></div>")
-      $('#lazybox_overlay').css({filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity}).fadeIn(500)
+      $('#lazybox_overlay').css({filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity}).fadeIn(options.speed+200)
     }
     $('body:not(:has(#lazybox))').append("<div id='lazybox'><div id='lazybox_body'></div></div>");
     (options.klass) ? $('#lazybox').attr('class', options.klass) : $('#lazybox').removeClass()
@@ -58,9 +59,9 @@
       (options.closeImg) ? $('#lazybox_close').attr('class', 'img').text('') : $('#lazybox_close').removeClass().text('×')
       if (!$.browser.msie && options.niceClose && !options.closeImg && !options.onTop) $('#lazybox_close').attr('class', 'nice')
     } else $('#lazybox_close').remove();
-    (!options.modal && options.overlay) ? $('#lazybox_overlay').bind('click', function(){ $.lazybox.close() }) : $('#lazybox_overlay').unbind()
-    $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close() })
-    $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(); e.preventDefault() })
+    (!options.modal && options.overlay) ? $('#lazybox_overlay').bind('click', function(){ $.lazybox.close(options.speed) }) : $('#lazybox_overlay').unbind()
+    $(document).keyup(function(e) { if (e.keyCode == 27 && options.esc) $.lazybox.close(options.speed) })
+    $('#lazybox_close, #lazybox_body .lazy_buttons a').live('click', function(e){ $.lazybox.close(options.speed); e.preventDefault() })
     return options
   }
 

@@ -165,6 +165,7 @@ Options
     closeImg:   true|false //default false. Use image for close link
     onTop:      true|false //default false.  Show lazybox on top instead of on center. It will use slide animation instead of fade.
     opacity:    0.6 //default 0.3. Set opacity for lazybox overlay
+    speed:      400 //default 300. Set animation speed
     klass:      'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
     //confirmation options
     cancelText:   //default 'Cancel'. Cancel button text
