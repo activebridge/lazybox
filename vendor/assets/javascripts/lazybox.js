@@ -12,6 +12,7 @@
             return options
           },
     close: function(speed){
+             speed = speed || defaults.speed;
              ($('#lazybox').position().top == 0) ? effect = 'slideUp' : effect = 'fadeOut'
              $('#lazybox')[effect](speed)
              $('#lazybox_overlay').fadeOut(speed+200)

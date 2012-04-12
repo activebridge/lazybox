@@ -52,7 +52,7 @@ a#lazybox_close.nice {
 }
 
 a#lazybox_close:hover { color: black; }
-a#lazybox_close.nice:hover { background: white; border-color: black; color: black; }
+a#lazybox_close.nice:hover { background: white; border-color: black; }
 img.lazy_img { cursor: pointer; }
 #lazybox .lazy_buttons { margin-top: 15px; text-align: right; }
 #lazybox.confirm { max-width: 300px; }
