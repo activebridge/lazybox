@@ -157,19 +157,20 @@ Style your close:
 Options
 -------
 
-    overlay:    true|false //default true. Show lazybox overlay
-    esc:        true|false //default true. Close lazybox on esc press
-    close:      true|false //default true. Show close lazybox button
-    niceClose:  true|false //default true. Show nice close button like in fancybox(IE always shows simple close button)
-    modal:      true|false //default true. Close lazybox on overlay click
+    overlay:    true|false //default true.  Show lazybox overlay
+    esc:        true|false //default true.  Close lazybox on esc press
+    close:      true|false //default true.  Show close lazybox button
+    niceClose:  true|false //default true.  Show nice close button like in fancybox(IE always shows simple close button)
+    modal:      true|false //default true.  Close lazybox on overlay click
     closeImg:   true|false //default false. Use image for close link
-    onTop:      true|false //default false.  Show lazybox on top instead of on center. It will use slide animation instead of fade.
-    opacity:    0.6 //default 0.3. Set opacity for lazybox overlay
-    speed:      400 //default 300. Set animation speed
-    klass:      'class' // Set class for lazybox. <div id='lazybox' class='class'>...</div>
+    onTop:      true|false //default false. Show lazybox on top instead of on center. It will use slide animation instead of fade.
+    fixed:      true|false //default false. Set fixed position.
+    opacity:    0.6 //default 0.3.          Set opacity for lazybox overlay
+    speed:      400 //default 300.          Set animation speed
+    klass:      'class'                     Set class for lazybox. <div id='lazybox' class='class'>...</div>
     //confirmation options
     cancelText:   //default 'Cancel'. Cancel button text
-    submitText:   //default 'Ok'. Confirm button text
+    submitText:   //default 'Ok'.     Confirm button text
     cancelClass:  //default 'button'. Cancel button class
     submitClass:  //default 'button'. Confirm button class
 

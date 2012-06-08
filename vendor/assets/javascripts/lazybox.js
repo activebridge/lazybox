@@ -1,12 +1,12 @@
 (function($){
-  var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, onTop: false, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button', speed: 300}, effect, y
+  var defaults = {overlay: true, esc: true, close: true, niceClose: true, modal: true, opacity: 0.3, onTop: false, speed: 300, fixed: false, cancelText: 'Cancel', cancelClass: 'button', submitText: 'Ok', submitClass: 'button'}, effect, y
   $.lazybox = function(html, options){ $.lazybox.show(html, options) }
   $.extend($.lazybox, {
     settings: $.extend({}, defaults),
     show: function(content, options){
             var options = init(options)
             $('#lazybox_body').html(content)
-            $.lazybox.center(options.onTop);
+            $.lazybox.center(options.onTop, options.fixed);
             (options.onTop) ? effect = 'slideDown' : effect = 'fadeIn'
             $('#lazybox')[effect](options.speed)
             return options
@@ -17,9 +17,14 @@
              $('#lazybox')[effect](speed)
              $('#lazybox_overlay').fadeOut(speed+200)
            },
-    center: function(onTop){
-              (onTop) ? y = 0 : y = (($(window).height()-$('#lazybox').outerHeight())/2)+$(window).scrollTop()
-              $('#lazybox').css({ top: ((y < 20 && !onTop) ? 20 : y), left:(($(window).width()-$('#lazybox').outerWidth())/2)+$(window).scrollLeft()})
+    center: function(onTop, fixed){
+              if (fixed){
+                (onTop) ? y = 0 : y = ($('#lazybox').outerHeight())/2
+                $('#lazybox').css({ 'margin-left': -$('#lazybox').outerWidth()/2, 'margin-top': -((y < 20 && !onTop) ? 20 : y), top: ((onTop) ?  0 : '49%'), position: 'fixed', left: '49%'})
+              } else {
+                (onTop) ? y = 0 : y = (($(window).height()-$('#lazybox').outerHeight())/2)+$(window).scrollTop()
+                $('#lazybox').css({ top: ((y < 20 && !onTop) ? 20 : y), left:(($(window).width()-$('#lazybox').outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
+              }
             },
     confirm: function(element){
                var options = $.extend(defaults, $.lazybox.settings)
