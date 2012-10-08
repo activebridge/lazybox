@@ -1,0 +1,40 @@
+#lazybox_overlay {
+  background: black;
+  bottom: 0px;
+  display: none;
+  left: 0px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  z-index: 1000;
+}
+
+#lazybox {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 5px #333;
+  display: none;
+  left: 49%;
+  padding: 20px;
+  position: absolute;
+  top: 49%;
+  z-index: 1001;
+  &.confirm { max-width: 300px; }
+  .lazy_buttons { margin-top: 15px; text-align: right; }
+  img.lazy_img { cursor: pointer; }
+}
+
+a#lazybox_close {
+  background: transparent;
+  color: gray;
+  cursor: pointer;
+  font: bold 26px/100% Arial, Helvetica, sans-serif !important;
+  height: 25px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 25px;
+  &:hover { color: black; }
+}
