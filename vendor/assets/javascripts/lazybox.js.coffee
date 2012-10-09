@@ -52,14 +52,14 @@
       options = $.extend defaults, $.lazybox.settings
       message = element.data('confirm')
       return true if !message
-      $.lazybox.show('<p>'+message+'</p><div class="lazy_buttons"><div>', { klass: 'confirm' })
+      $.lazybox.show('<p>'+message+'</p><div class="lazy_buttons"></div>', { klass: 'confirm' })
       element.clone().attr('class', options.submitClass).removeAttr('data-confirm').text(options.submitText).appendTo('.lazy_buttons')
       $('.lazy_buttons').append(' ')
       $('<a>', { href: '', text: options.cancelText, 'class': options.cancelClass }).appendTo('.lazy_buttons')
       return false
 
   $.fn.lazybox = (options) ->
-    this.live 'click', (e) =>
+    $(document).on 'click', this.selector, (e) =>
       a = $(e.currentTarget)
       href = a.attr('href')
       imagesRegexp = new RegExp('\\.(png|jpg|jpeg|gif)(\\?.*)?$', 'i')
