@@ -3,7 +3,7 @@ LazyBox
 
 [Live Demo](http://lazybox.herokuapp.com/)
 
-[Demo Source](https://github.com/alex-galushka/lazybox_demo)
+[Demo Source](https://github.com/galulex/lazybox_demo)
 
 Lazybox is a jQuery-based, lightbox that can display entire remote pages, images and confirmation dialogs.
 Replace standard rails confirmations with lazybox just added several rows to your project. Use lazybox with rails assets pipeline.
