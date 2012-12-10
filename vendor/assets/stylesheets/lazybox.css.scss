@@ -22,14 +22,14 @@
   z-index: 1001;
   &.confirm { max-width: 300px; }
   .lazy_buttons { margin-top: 15px; text-align: right; }
-  img.lazy_img { cursor: pointer; }
+  img.lazy_img { cursor: pointer; display: block; }
 }
 
 a#lazybox_close {
   background: transparent;
   color: gray;
   cursor: pointer;
-  font: bold 26px/100% Arial, Helvetica, sans-serif !important;
+  font: bold 26px/100% Arial, Helvetica, sans-serif;
   height: 25px;
   position: absolute;
   right: 0;
