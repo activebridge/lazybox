@@ -69,9 +69,13 @@
         img.onload = (element) ->
           options = $.lazybox.show(img, options)
           nextLink = if a.is(':last-child') then a.siblings('a[rel*=lazybox]:first') else a.next('a[rel*=lazybox]:first')
-          if nextLink.length != 0
-            $('#lazybox img').bind 'click', () =>
-              box.fadeOut(options.speed, () -> nextLink.click())
+          prevLink = if a.is(':first-child') then a.siblings('a[rel*=lazybox]:last') else a.prev('a[rel*=lazybox]:first')
+          if nextLink.length and prevLink.length
+            $('#lazybox_body:not(:has(a#next_lazy_img))').append("<a id='prev_lazy_img' href=''><b>‹</b></a><a id='next_lazy_img' href=''><b>›</b></a>")
+            $('#next_lazy_img, #prev_lazy_img').bind 'click', (event) ->
+              event.preventDefault()
+              box.fadeOut options.speed, () ->
+                if event.currentTarget.id == 'next_lazy_img' then nextLink.click() else prevLink.click()
         $(img).attr({ 'class': 'lazy_img', src: href })
       else
         $.ajax({

@@ -22,7 +22,8 @@
   z-index: 1001;
   &.confirm { max-width: 300px; }
   .lazy_buttons { margin-top: 15px; text-align: right; }
-  img.lazy_img { cursor: pointer; display: block; }
+  img.lazy_img { display: block; }
+  #lazybox_body { position: relative; }
 }
 
 a#lazybox_close {
@@ -38,3 +39,28 @@ a#lazybox_close {
   width: 25px;
   &:hover { color: black; }
 }
+
+a#prev_lazy_img, a#next_lazy_img {
+  background: rgba(0, 0, 0, 0);
+  height: 100%;
+  outline: none;
+  position: absolute;
+  top: 0;
+  text-decoration: none;
+  width: 33px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+    b { opacity: 0.8; }
+  }
+  b {
+    color: whiteSmoke;
+    font: bold 96px/100% Arial, Helvetica, sans-serif;
+    height: 100px;
+    opacity: 0.3;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+  }
+}
+
+a#next_lazy_img { right: 0; }
