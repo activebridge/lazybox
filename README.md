@@ -1,7 +1,5 @@
-[![endorse](http://api.coderwall.com/galulex/endorsecount.png)](http://coderwall.com/galulex)
-
-LazyBox
-=======
+LazyBox [![Build Status](https://travis-ci.org/galulex/lazybox.png?branch=master)](https://travis-ci.org/galulex/lazybox) [![Gem Version](https://badge.fury.io/rb/lazybox.png)](http://badge.fury.io/rb/webhostinghub-glyphs-rails) [![endorse](http://api.coderwall.com/galulex/endorsecount.png)](http://coderwall.com/galulex)
+=
 
 [Live Demo](http://lazybox.herokuapp.com/)
 
@@ -28,11 +26,7 @@ Then run `bundle install` to update your application's bundle.
 Include in your `application.css`:
 
 ```css
-/*
- * ...
  *= require lazybox
- * ...
- */
 ```
 
 And in `application.js`:
