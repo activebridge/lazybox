@@ -40,9 +40,9 @@
 
     center: (fixed, top) =>
       if fixed
-        box.css({'z-index': 100000, 'margin-left': -box.outerWidth()/2, 'margin-top': top, top: 0, position: 'fixed', left: '49%'})
+        box.css({'margin-left': -box.outerWidth()/2, 'margin-top': top, top: 0, position: 'fixed', left: '49%'})
       else
-        box.css({'z-index': 100000, top: top, left:(($(window).width()-box.outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
+        box.css({top: top, left:(($(window).width()-box.outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
