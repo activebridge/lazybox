@@ -34,7 +34,7 @@
 
     close: (speed) ->
       speed = speed || defaults.speed
-      effect = if (box.position().top - window.scrollY == 0) then 'slideUp' else 'fadeOut'
+      effect = if (box.position().top - window.scrollY <= 0) then 'slideUp' else 'fadeOut'
       box[effect](speed)
       overlay.fadeOut(speed+200)
 
