@@ -94,7 +94,7 @@ $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', ov
 or instance settings
 
 ```javascript
-$.lazybox("<div>It works!</div>",{onTop: true, opacity: 0.7, modal: false})
+$.lazybox("<div>It works!</div>",{top: 50, opacity: 0.7, fixed: true})
 ```
 
 ###Images
@@ -158,7 +158,7 @@ Options
     close:      true|false //default true.  Show close lazybox button
     modal:      true|false //default true.  Close lazybox on overlay click
     closeImg:   true|false //default false. Use image for close link
-    onTop:      true|false //default false. Show lazybox on top instead of on center. It will use slide animation instead of fade.
+    top:        integer|'33%' //default '49%'. The value lazybox should margin top.
     fixed:      true|false //default false. Set fixed position.
     opacity:    0.6 //default 0.3.          Set opacity for lazybox overlay
     speed:      400 //default 300.          Set animation speed

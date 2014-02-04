@@ -5,9 +5,9 @@
     close: true,
     modal: true,
     opacity: 0.3,
-    onTop: false,
     speed: 300,
     fixed: false,
+    top: '49%',
     cancelText: 'Cancel',
     cancelClass: 'button',
     submitText: 'Ok',
@@ -27,8 +27,8 @@
     show: (content, options) ->
       options = init(options)
       $('#lazybox_body').html(content)
-      $.lazybox.center(options.onTop, options.fixed)
-      effect = if options.onTop then 'slideDown' else 'fadeIn'
+      $.lazybox.center(options.fixed, options.top)
+      effect = if options.top == 0 then 'slideDown' else 'fadeIn'
       box[effect](options.speed)
       return options
 
@@ -38,15 +38,11 @@
       box[effect](speed)
       overlay.fadeOut(speed+200)
 
-    center: (onTop, fixed) =>
+    center: (fixed, top) =>
       if fixed
-        y = if onTop then 0 else (box.outerHeight())/2
-        y = 20 if y < 20 and !onTop
-        box.css({ 'margin-left': -box.outerWidth()/2, 'margin-top': -y, top: (if onTop then  0 else '49%'), position: 'fixed', left: '49%'})
+        box.css({'margin-left': -box.outerWidth()/2, 'margin-top': top, top: 0, position: 'fixed', left: '49%'})
       else
-        y = if onTop then 0 else (($(window).height()-$('#lazybox').outerHeight())/2)+$(window).scrollTop()
-        y = 20 if y < 20 and !onTop
-        box.css({ top: y, left:(($(window).width()-box.outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
+        box.css({top: top, left:(($(window).width()-box.outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
