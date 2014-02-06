@@ -1,35 +1,60 @@
-#lazybox_overlay {
-  background: black;
+$lazyOpacity: 0.8;
+$lazyTransition: 0.9s;
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+     -moz-transform: $property;
+      -ms-transform: $property;
+       -o-transform: $property;
+          transform: $property;
+}
+
+#lazy_overlay {
+  visibility: hidden;
+  z-index: 1000;
+  background: rgba(0, 0, 0, $lazyOpacity);
   bottom: 0px;
-  display: none;
   left: 0px;
   position: fixed;
   right: 0px;
   top: 0px;
-  z-index: 1000;
+  opacity: 0;
+  -webkit-transition: $lazyTransition;
+  transition: $lazyTransition;
+  &.visible { visibility: visible; opacity: 1; }
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center
 }
 
 #lazybox {
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 0 1px 5px #333;
-  display: none;
-  left: 49%;
   padding: 20px;
-  position: absolute;
-  top: 49%;
-  z-index: 1001;
+  position: relative;
   &.confirm { max-width: 300px; }
+  -webkit-transition: $lazyTransition;
+  transition: $lazyTransition;
+  &.visible { visibility: visible; opacity: 1; }
   .lazy_buttons { margin-top: 15px; text-align: right; }
   img.lazy_img { display: block; }
   #lazybox_body { position: relative; }
 }
 
-a#lazybox_close {
+a#lazy_close {
   background: transparent;
   color: gray;
   cursor: pointer;
+  display: none;
   font: bold 26px/100% Arial, Helvetica, sans-serif;
   height: 25px;
   position: absolute;
@@ -38,6 +63,7 @@ a#lazybox_close {
   top: 0;
   width: 25px;
   &:hover { color: black; }
+  &.visible { display: block; }
 }
 
 a#prev_lazy_img, a#next_lazy_img {
