@@ -62,6 +62,8 @@ a#lazy_close {
   text-align: center;
   top: 0;
   width: 25px;
+  &:after { content: '×'; }
+  &.img:after { content: ''; }
   &:hover { color: black; }
   &.visible { display: block; }
 }
@@ -73,12 +75,14 @@ a#prev_lazy_img, a#next_lazy_img {
   position: absolute;
   top: 0;
   text-decoration: none;
-  width: 33px;
+  width: 35px;
+  padding: 0 10px;
   &:hover {
     background: rgba(0, 0, 0, 0.3);
-    b { opacity: 0.8; }
+    &:after { opacity: 0.8; }
   }
-  b {
+  &:after {
+    content: '‹';
     color: whiteSmoke;
     font: bold 96px/100% Arial, Helvetica, sans-serif;
     height: 100px;
@@ -89,4 +93,4 @@ a#prev_lazy_img, a#next_lazy_img {
   }
 }
 
-a#next_lazy_img { right: 0; }
+a#next_lazy_img { right: 0; &:after { content: '›'; }}

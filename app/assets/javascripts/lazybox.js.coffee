@@ -4,17 +4,13 @@
     esc: true,
     close: true,
     modal: true,
-    opacity: 0.3,
-    onTop: false,
-    speed: 300,
-    fixed: false,
     cancelText: 'Cancel',
     cancelClass: 'button',
     submitText: 'Ok',
     submitClass: 'button'
   }
 
-  html = "<div id='lazy_overlay'><div id='lazybox'><a id='lazy_close' href=''>×</a><div id='lazy_body'></div></div></div>"
+  html = "<div id='lazy_overlay'><div id='lazybox'><a id='lazy_close' href=''></a><div id='lazy_body'></div></div></div>"
   box = $('#lazybox')
   overlay = $('#lazybox_overlay')
   close = $('#lazybox_close')
@@ -27,21 +23,16 @@
     show: (content, options) ->
       options = init(options)
       $('#lazy_body').html(content)
-      overlay.addClass('visible') if options.overlay
-      close.addClass('visible') if options.close
-      $.lazybox.center(options.onTop, options.fixed)
-      box.addClass('visible')
+      setTimeout (->
+        overlay.addClass('visible') if options.overlay
+        close.addClass('visible') if options.close
+        box.addClass('visible')
+        ), 10
       return options
 
-    close: (speed) ->
+    close: ->
       overlay.removeClass('visible')
       box.removeClass('visible')
-
-    center: (onTop, fixed) =>
-      # if fixed
-        # box.css({ position: 'fixed' })
-      # else
-        # box.css({ position: 'absolute' })
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
@@ -66,17 +57,23 @@
           nextLink = if a.is(':last-child') then a.siblings('a[rel*=lazybox]:first') else a.next('a[rel*=lazybox]:first')
           prevLink = if a.is(':first-child') then a.siblings('a[rel*=lazybox]:last') else a.prev('a[rel*=lazybox]:first')
           if nextLink.length and prevLink.length
-            $('#lazy_body:not(:has(a#next_lazy_img))').append("<a id='prev_lazy_img' href=''><b>‹</b></a><a id='next_lazy_img' href=''><b>›</b></a>")
+            $('#lazy_body:not(:has(a#next_lazy_img))').append("<a id='prev_lazy_img' href=''></a><a id='next_lazy_img' href=''></a>")
             $('#next_lazy_img, #prev_lazy_img').bind 'click', (event) ->
+              event.stopPropagation()
               event.preventDefault()
-              box.removeClass('visible')
-              if event.currentTarget.id == 'next_lazy_img' then nextLink.click() else prevLink.click()
+              if event.currentTarget.id == 'next_lazy_img'
+                box.animate {'margin-right': window.outerWidth*2, visibility: 'hidden'}, 900, 'linear', ->
+                  nextLink.click()
+                  box.css({'margin-right': -window.outerWidth*2})
+                  box.animate {'margin-right': 0}, 1800
+              else
+                prevLink.click()
         $(img).attr({ 'class': 'lazy_img', src: href })
       else
         $.ajax({
           url: href,
           success: (data) => $.lazybox.show(data, options)
-          error: () => $.lazybox.close(options.speed) })
+          error: () => $.lazybox.close() })
 
   init = (options) ->
     options = $.extend $.extend({}, defaults), $.lazybox.settings, options
@@ -86,15 +83,15 @@
     close = $('#lazy_close')
     if options.klass then box.attr('class', options.klass) else box.removeClass()
     if options.close
-      if options.closeImg then close.attr('class', 'img').text('') else close.removeClass().text('×')
+      if options.closeImg then close.attr('class', 'img') else close.removeClass()
     else close.removeClass()
     if !options.modal and options.overlay
-      overlay.bind 'click', () => $.lazybox.close(options.speed)
+      overlay.bind 'click', () => $.lazybox.close()
     else
       overlay.unbind()
     $(document).keyup (e) ->
-      $.lazybox.close(options.speed) if e.keyCode == 27 and options.esc
-    box.on 'click', '#lazy_close, .lazy_buttons a', (e) => $.lazybox.close(options.speed); e.preventDefault()
+      $.lazybox.close() if e.keyCode == 27 and options.esc
+    box.on 'click', '#lazy_close, .lazy_buttons a', (e) => $.lazybox.close(); e.preventDefault()
     return options
 
 ) jQuery
