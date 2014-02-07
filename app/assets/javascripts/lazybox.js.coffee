@@ -4,6 +4,7 @@
     esc: true,
     close: true,
     modal: true,
+    onTop: false,
     cancelText: 'Cancel',
     cancelClass: 'button',
     submitText: 'Ok',
@@ -12,8 +13,8 @@
 
   html = "<div id='lazy_overlay'><div id='lazybox'><a id='lazy_close' href=''></a><div id='lazy_body'></div></div></div>"
   box = $('#lazybox')
-  overlay = $('#lazybox_overlay')
-  close = $('#lazybox_close')
+  overlay = $('#lazy_overlay')
+  close = $('#lazy_close')
 
   $.lazybox = (html, options) -> $.lazybox.show(html, options)
 
@@ -32,7 +33,6 @@
 
     close: ->
       overlay.removeClass('visible')
-      box.removeClass('visible')
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
@@ -62,12 +62,15 @@
               event.stopPropagation()
               event.preventDefault()
               if event.currentTarget.id == 'next_lazy_img'
-                box.animate {'margin-right': window.outerWidth*2, visibility: 'hidden'}, 900, 'linear', ->
+                box.animate {'left': -window.outerWidth*2}, ->
                   nextLink.click()
-                  box.css({'margin-right': -window.outerWidth*2})
-                  box.animate {'margin-right': 0}, 1800
+                  box.css({'left': window.outerWidth*2})
+                  box.animate {'left': 0}
               else
-                prevLink.click()
+                box.animate {'left': window.outerWidth*2}, ->
+                  prevLink.click()
+                  box.css({'left': -window.outerWidth*2})
+                  box.animate {'left': 0}, 100
         $(img).attr({ 'class': 'lazy_img', src: href })
       else
         $.ajax({
@@ -82,6 +85,7 @@
     overlay = $('#lazy_overlay')
     close = $('#lazy_close')
     if options.klass then box.attr('class', options.klass) else box.removeClass()
+    if options.onTop then overlay.attr('class', 'top') else overlay.removeClass()
     if options.close
       if options.closeImg then close.attr('class', 'img') else close.removeClass()
     else close.removeClass()

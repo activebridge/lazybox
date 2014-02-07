@@ -1,13 +1,5 @@
-$lazyOpacity: 0.8;
-$lazyTransition: 0.9s;
-
-@mixin transform($property) {
-  -webkit-transform: $property;
-     -moz-transform: $property;
-      -ms-transform: $property;
-       -o-transform: $property;
-          transform: $property;
-}
+$lazyOpacity: 0.7;
+$lazyTransition: 0.3s;
 
 #lazy_overlay {
   visibility: hidden;
@@ -28,13 +20,16 @@ $lazyTransition: 0.9s;
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
+  &.top { align-items: flex-start; }
+  &.top #lazybox {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
 }
 
 #lazybox {
   z-index: 1001;
-  opacity: 0;
-  visibility: hidden;
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -42,9 +37,8 @@ $lazyTransition: 0.9s;
   padding: 20px;
   position: relative;
   &.confirm { max-width: 300px; }
-  -webkit-transition: $lazyTransition;
-  transition: $lazyTransition;
-  &.visible { visibility: visible; opacity: 1; }
+  // -webkit-transition: $lazyTransition;
+  // transition: $lazyTransition;
   .lazy_buttons { margin-top: 15px; text-align: right; }
   img.lazy_img { display: block; }
   #lazybox_body { position: relative; }
