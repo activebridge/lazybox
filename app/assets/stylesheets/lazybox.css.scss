@@ -1,9 +1,10 @@
 $lazyOpacity: 0.7;
 $lazyTransition: 0.3s;
+$lazy-z-index: 1000;
 
 #lazy_overlay {
   visibility: hidden;
-  z-index: 1000;
+  z-index: $lazy-z-index;
   background: rgba(0, 0, 0, $lazyOpacity);
   bottom: 0px;
   left: 0px;
@@ -29,7 +30,6 @@ $lazyTransition: 0.3s;
 }
 
 #lazybox {
-  z-index: 1001;
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -37,10 +37,8 @@ $lazyTransition: 0.3s;
   padding: 20px;
   position: relative;
   &.confirm { max-width: 300px; }
-  // -webkit-transition: $lazyTransition;
-  // transition: $lazyTransition;
   .lazy_buttons { margin-top: 15px; text-align: right; }
-  img.lazy_img { display: block; }
+  .lazy-img { display: block; }
   #lazybox_body { position: relative; }
 }
 
@@ -61,30 +59,3 @@ a#lazy_close {
   &:hover { color: black; }
   &.visible { display: block; }
 }
-
-a#prev_lazy_img, a#next_lazy_img {
-  background: rgba(0, 0, 0, 0);
-  height: 100%;
-  outline: none;
-  position: absolute;
-  top: 0;
-  text-decoration: none;
-  width: 35px;
-  padding: 0 10px;
-  &:hover {
-    background: rgba(0, 0, 0, 0.3);
-    &:after { opacity: 0.8; }
-  }
-  &:after {
-    content: '‹';
-    color: whiteSmoke;
-    font: bold 96px/100% Arial, Helvetica, sans-serif;
-    height: 100px;
-    opacity: 0.3;
-    position: absolute;
-    top: 50%;
-    margin-top: -50px;
-  }
-}
-
-a#next_lazy_img { right: 0; &:after { content: '›'; }}
