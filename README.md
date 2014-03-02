@@ -1,4 +1,4 @@
-LazyBox [![Build Status](https://travis-ci.org/galulex/lazybox.png?branch=master)](https://travis-ci.org/galulex/lazybox) [![Gem Version](https://badge.fury.io/rb/lazybox.png)](http://badge.fury.io/rb/webhostinghub-glyphs-rails) [![endorse](http://api.coderwall.com/galulex/endorsecount.png)](http://coderwall.com/galulex)
+LazyBox [![Build Status](https://travis-ci.org/activebridge/lazybox.png?branch=master)](https://travis-ci.org/galulex/lazybox) [![Gem Version](https://badge.fury.io/rb/lazybox.png)](http://badge.fury.io/rb/webhostinghub-glyphs-rails) [![endorse](http://api.coderwall.com/galulex/endorsecount.png)](http://coderwall.com/galulex)
 =
 
 [Live Demo](http://lazybox.herokuapp.com/)
