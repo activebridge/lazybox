@@ -174,4 +174,6 @@ Firefox
 Opera
 Safari
 
+### If you want to support IE < 9 you have to use version 0.2.*.
+
 Copyright© Alex Galushka
