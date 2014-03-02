@@ -1,25 +1,25 @@
 describe 'lazybox', ->
 
   describe 'settings', ->
-    it 'should set global settings', ->
+    it 'sets global settings', ->
       $.lazybox.settings = {close: true}
       expect($.lazybox.settings).toEqual({close: true})
 
-    it 'should get global settings', ->
+    it 'gets global settings', ->
       expect($.lazybox.settings).toBeDefined()
 
   describe 'show', ->
-    it 'should show lazybox', ->
+    it 'shows lazybox', ->
       $.lazybox.show('')
       expect($('#lazybox')).toBeVisible
 
-    it 'should contain lazybox_body', ->
+    it 'contains lazy_body', ->
       $.lazybox.show('')
-      expect($('#lazybox')).toContain('#lazybox_body')
+      expect($('#lazybox')).toContain('#lazy_body')
 
-    it 'should contain lazybox_body with passed html', ->
+    it 'contains lazybox_body with passed html', ->
       $.lazybox.show('<div>test</div>')
-      expect($('#lazybox_body')).toHaveHtml('<div>test</div>')
+      expect($('#lazy_body')).toHaveHtml('<div>test</div>')
 
   describe 'close', ->
     it 'should hide lazybox', ->
@@ -27,53 +27,53 @@ describe 'lazybox', ->
       $.lazybox.close()
       expect($('#lazybox')).toBeHidden
 
-    it 'should hide lazybox overlay', ->
+    it 'hides lazybox overlay', ->
       $.lazybox('')
       $.lazybox.close()
-      expect($('#lazybox_overlay')).toBeHidden
+      expect($('#lazy_overlay')).toBeHidden
 
   describe 'confirm', ->
-    it 'should return true if data-confirm is no specified', ->
+    it 'returns true if data-confirm is no specified', ->
       element = $('<a href="">×</a>')
       expect($.lazybox.confirm(element)).toBeTruthy()
 
     element = $('<a href="" data-confirm="×">×</a>')
 
-    it 'should return false if data-confirm is specified', ->
+    it 'returns false if data-confirm is specified', ->
       expect($.lazybox.confirm(element)).toBeFalsy()
 
-    it 'should show lazybox', ->
+    it 'shows lazybox', ->
       $.lazybox.confirm(element)
       expect($('#lazybox')).toBeVisible()
 
-    it 'should have text specified in data-confirm attribute', ->
+    it 'has text specified in data-confirm attribute', ->
       $.lazybox.confirm(element)
       expect($('#lazybox p')).toHaveText(element.data('confirm'))
 
-    it 'should contain buttons', ->
+    it 'contains buttons', ->
       $.lazybox.confirm(element)
-      expect($('#lazybox_body')).toContain('.lazy_buttons')
+      expect($('#lazy_body')).toContain('.lazy_buttons')
 
-    it 'should have confirm class', ->
+    it 'has confirm class', ->
       $.lazybox.confirm(element)
       expect($('#lazybox')).toHaveClass('confirm')
 
-    it 'should have confirm button with class specified in settings', ->
+    it 'has confirm button with class specified in settings', ->
       $.lazybox.settings = { submitClass: 'ok', submitText: 'ok' }
       $.lazybox.confirm(element)
       expect($('#lazybox .lazy_buttons')).toContain('.ok')
 
-    it 'should have confirm button with text specified in settings', ->
+    it 'has confirm button with text specified in settings', ->
       $.lazybox.settings = { submitClass: 'ok', submitText: 'ok' }
       $.lazybox.confirm(element)
       expect($('#lazybox .lazy_buttons a.ok')).toHaveText('ok')
 
-    it 'should have cancel button with class specified in settings', ->
+    it 'has cancel button with class specified in settings', ->
       $.lazybox.settings = { cancelClass: 'cancel', cancelText: 'cancel' }
       $.lazybox.confirm(element)
       expect($('#lazybox .lazy_buttons')).toContain('.cancel')
 
-    it 'should have cancel button with class specified in settings', ->
+    it 'has cancel button with class specified in settings', ->
       $.lazybox.settings = { cancelClass: 'cancel', cancelText: 'cancel' }
       $.lazybox.confirm(element)
       expect($('#lazybox .lazy_buttons a.cancel')).toHaveText('cancel')
@@ -81,20 +81,20 @@ describe 'lazybox', ->
   describe 'init', ->
 
     describe 'overlay element', ->
-      it 'should exist', ->
+      it 'exists', ->
         $.lazybox('')
-        expect($('body')).toContain('#lazybox_overlay')
+        expect($('body')).toContain('#lazy_overlay')
 
-      it 'should be visible', ->
+      it 'is visible', ->
         $.lazybox('')
-        expect($('#lazybox_overlay')).toBeVisible()
+        expect($('#lazy_overlay')).toBeVisible()
 
     describe 'lazybox element', ->
       it 'should have class specified in params', ->
         $.lazybox('', { klass: 'test' })
         expect($('#lazybox')).toHaveClass('test')
 
-      it 'should not have any class if it is not specified', ->
+      it 'does not have any class if it is not specified', ->
         $.lazybox('', { klass: 'test' })
         $.lazybox('')
         expect($('#lazybox')).not.toHaveClass('test')
@@ -102,24 +102,16 @@ describe 'lazybox', ->
     describe 'close element', ->
       it 'should exist', ->
         $.lazybox('')
-        expect($('#lazybox')).toContain('#lazybox_close')
+        expect($('#lazybox')).toContain('#lazy_close')
 
-      it 'should contain text', ->
-        $.lazybox('')
-        expect($('#lazybox_close')).toHaveText('×')
-
-      it 'should not contain text', ->
+      it 'has img class', ->
         $.lazybox('', { closeImg: true })
-        expect($('#lazybox_close')).not.toHaveText('×')
+        expect($('#lazy_close')).toHaveClass('img')
 
-      it 'should have img class', ->
-        $.lazybox('', { closeImg: true })
-        expect($('#lazybox_close')).toHaveClass('img')
+      it 'has close event binded', ->
+        $('#lazy_close').click()
+        expect($('#lazy_overlay')).not.toHaveClass('visible')
 
-      it 'should have close event binded', ->
-        $('#lazybox_close').click()
-        expect($('#lazybox')).toBeHidden()
-
-      it 'should not exist', ->
+      it 'is hidden', ->
         $.lazybox('', { close: false })
-        expect($('#lazybox')).not.toContain('#lazybox_close')
+        expect($('#lazy_close')).toBeHidden()

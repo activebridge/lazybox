@@ -1,23 +1,16 @@
-( ($) ->
-  defaults = {
-    overlay: true,
-    esc: true,
-    close: true,
-    modal: true,
-    opacity: 0.3,
-    onTop: false,
-    speed: 300,
-    fixed: false,
-    cancelText: 'Cancel',
-    cancelClass: 'button',
-    submitText: 'Ok',
-    submitClass: 'button'
-  }
+(($) ->
+  defaults =
+    esc: true
+    close: true
+    modal: false
+    onTop: false
+    cancelText: 'Cancel'
+    cancelClass: 'btn'
+    submitText: 'Ok'
+    submitClass: 'btn'
 
-  html = "<div id='lazybox'><div id='lazybox_body'></div></div>"
-  box = $('#lazybox')
-  overlay = $('#lazybox_overlay')
-  close = $('#lazybox_close')
+  html = "<div id='lazy_overlay'><div id='lazybox'><a id='lazy_close' href=''></a><div id='lazy_body'></div></div></div>"
+  box = overlay = close = null
 
   $.lazybox = (html, options) -> $.lazybox.show(html, options)
 
@@ -26,27 +19,11 @@
 
     show: (content, options) ->
       options = init(options)
-      $('#lazybox_body').html(content)
-      $.lazybox.center(options.onTop, options.fixed)
-      effect = if options.onTop then 'slideDown' else 'fadeIn'
-      box[effect](options.speed)
-      return options
+      $('#lazy_body').html(content)
+      setTimeout (-> overlay.addClass('visible')), 1
+      close.addClass('visible') if options.close && !box.hasClass('visible')
 
-    close: (speed) ->
-      speed = speed || defaults.speed
-      effect = if (box.position().top - window.scrollY <= 0) then 'slideUp' else 'fadeOut'
-      box[effect](speed)
-      overlay.fadeOut(speed+200)
-
-    center: (onTop, fixed) =>
-      if fixed
-        y = if onTop then 0 else (box.outerHeight())/2
-        y = 20 if y < 20 and !onTop
-        box.css({ 'margin-left': -box.outerWidth()/2, 'margin-top': -y, top: (if onTop then  0 else '49%'), position: 'fixed', left: '49%'})
-      else
-        y = if onTop then 0 else (($(window).height()-$('#lazybox').outerHeight())/2)+$(window).scrollTop()
-        y = 20 if y < 20 and !onTop
-        box.css({ top: y, left:(($(window).width()-box.outerWidth())/2)+$(window).scrollLeft(), position: 'absolute', margin: 0})
+    close: -> overlay.removeClass('visible')
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
@@ -55,55 +32,43 @@
       $.lazybox.show('<p>'+message+'</p><div class="lazy_buttons"></div>', { klass: 'confirm' })
       element.clone().attr('class', options.submitClass).removeAttr('data-confirm').text(options.submitText).appendTo('.lazy_buttons')
       $('.lazy_buttons').append(' ')
-      $('<a>', { href: '', text: options.cancelText, 'class': options.cancelClass }).appendTo('.lazy_buttons')
+      $('<a>', { href: '', text: options.cancelText, 'class': 'cancel ' + options.cancelClass }).appendTo('.lazy_buttons')
       return false
 
   $.fn.lazybox = (options) ->
-    $(document).on 'click', this.selector, (e) =>
+    $(document).on 'click', this.selector, (e) ->
       a = $(e.currentTarget)
       href = a.attr('href')
       imagesRegexp = new RegExp('\\.(png|jpg|jpeg|gif)(\\?.*)?$', 'i')
       e.preventDefault()
       if href.match(imagesRegexp)
         img = new Image()
-        img.onload = (element) ->
-          options = $.lazybox.show(img, options)
-          nextLink = if a.is(':last-child') then a.siblings('a[rel*=lazybox]:first') else a.next('a[rel*=lazybox]:first')
-          prevLink = if a.is(':first-child') then a.siblings('a[rel*=lazybox]:last') else a.prev('a[rel*=lazybox]:first')
-          if nextLink.length and prevLink.length
-            $('#lazybox_body:not(:has(a#next_lazy_img))').append("<a id='prev_lazy_img' href=''><b>‹</b></a><a id='next_lazy_img' href=''><b>›</b></a>")
-            $('#next_lazy_img, #prev_lazy_img').bind 'click', (event) ->
-              event.preventDefault()
-              box.fadeOut options.speed, () ->
-                if event.currentTarget.id == 'next_lazy_img' then nextLink.click() else prevLink.click()
-        $(img).attr({ 'class': 'lazy_img', src: href })
+        img.onload = (element) -> $.lazybox.show(img, options)
+        $(img).attr({ 'class': 'lazy-img', src: href })
       else
-        $.ajax({
-          url: href,
-          success: (data) => $.lazybox.show(data, options)
-          error: () => $.lazybox.close(options.speed) })
+        $.ajax
+          url: href
+          success: (data) -> $.lazybox.show(data, options)
+          error: -> $.lazybox.close()
 
   init = (options) ->
-    options = $.extend $.extend({}, defaults), $.lazybox.settings, options
-    if options.overlay
-      $('body:not(:has(#lazybox_overlay))').append("<div id='lazybox_overlay'></div>")
-      overlay = $('#lazybox_overlay')
-      overlay.css({ filter: 'alpha(opacity='+options.opacity*100+')', opacity: options.opacity }).fadeIn(options.speed+200)
+    options = $.extend {}, defaults, $.lazybox.settings, options
     $('body:not(:has(#lazybox))').append(html)
     box = $('#lazybox')
+    overlay = $('#lazy_overlay')
+    close = $('#lazy_close')
+    box.click (e) -> e.stopPropagation()
     if options.klass then box.attr('class', options.klass) else box.removeClass()
+    if options.onTop then overlay.addClass('top') else overlay.removeClass('top')
     if options.close
-      box.not(':has(#lazybox_close)').prepend($("<a id='lazybox_close' title='close'></a>"))
-      close = $('#lazybox_close')
-      if options.closeImg then close.attr('class', 'img').text('') else close.removeClass().text('×')
-    else close.remove()
-    if !options.modal and options.overlay
-      overlay.bind 'click', () => $.lazybox.close(options.speed)
+      if options.closeImg then close.addClass('img') else close.removeClass('img')
     else
-      overlay.unbind()
-    $(document).keyup (e) ->
-      $.lazybox.close(options.speed) if e.keyCode == 27 and options.esc
-    box.on 'click', '#lazybox_close, .lazy_buttons a', (e) => $.lazybox.close(options.speed); e.preventDefault()
+      close.removeClass()
+    if options.modal then overlay.unbind() else overlay.bind 'click', -> $.lazybox.close()
+    $(document).keyup (e) -> $.lazybox.close() if e.keyCode == 27 and options.esc
+    box.on 'click', '#lazy_close, .lazy_buttons a.cancel', (e) ->
+      $.lazybox.close()
+      e.preventDefault()
     return options
 
 ) jQuery

@@ -42,7 +42,7 @@ Usage
 Usual remote link:
 
 ```haml
-- link_to 'Lazybox', new_model_path, :remote => true
+- link_to 'Lazybox', new_model_path, remote: true
 ```
 
 In your controller:
@@ -54,14 +54,14 @@ end
 
 def create
   @model = Model.new(params[:model])
-  render :action => :new unless @model.save
+  render action: :new unless @model.save
 end
 ```
 
 `new.js.haml`
 
 ```haml
-$.lazybox("#{j(render :partial => 'form')}");
+$.lazybox("#{j(render partial: 'form')}");
 ```
 
 `create.js.haml`
@@ -70,7 +70,6 @@ $.lazybox("#{j(render :partial => 'form')}");
 $.lazybox.close()
 window.location.reload()
 ```
-![LazyBox](http://i.imgur.com/FEYpJ.png)
 
 ###Confirmations
 
@@ -82,14 +81,11 @@ And in `application.js`:
 $.rails.allowAction = $.lazybox.confirm;
 ```
 
-![LazyBox](http://i.imgur.com/1OQdU.png)
-
 for options use global lazybox settings:
 
 ```javascript
 $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', overlay: false}
 ```
-![LazyBox](http://i.imgur.com/2gW9R.png)
 
 or instance settings
 
@@ -100,7 +96,7 @@ $.lazybox("<div>It works!</div>",{onTop: true, opacity: 0.7, modal: false})
 ###Images
 
 ```haml
-- link_to 'Image', image.url, :rel => :lazybox
+- link_to 'Image', image.url, rel: :lazybox
 ```
 Include in your `app/assets/javascripts/application.js`:
 
@@ -112,15 +108,13 @@ $(document).ready(function() {
 });
 ```
 
-![LazyBox](http://i.imgur.com/r6pfy.png)
-
 If there are more than one link to image you can click on image in the lazybox to show the next one
 
 ```haml
-= link_to image.url, :rel => :lazybox do
-  = image_tag image.url, :height => 100
-= link_to image2.url, :rel => :lazybox do
-  = image_tag image2.url, :height => 100
+= link_to image.url, rel: :lazybox do
+  = image_tag image.url, height: 100
+= link_to image2.url, rel: :lazybox do
+  = image_tag image2.url, height: 100
 ```
 
 Custom close image
@@ -153,15 +147,11 @@ Style your close:
 Options
 -------
 
-    overlay:    true|false //default true.  Show lazybox overlay
     esc:        true|false //default true.  Close lazybox on esc press
     close:      true|false //default true.  Show close lazybox button
     modal:      true|false //default true.  Close lazybox on overlay click
     closeImg:   true|false //default false. Use image for close link
     onTop:      true|false //default false. Show lazybox on top instead of on center. It will use slide animation instead of fade.
-    fixed:      true|false //default false. Set fixed position.
-    opacity:    0.6 //default 0.3.          Set opacity for lazybox overlay
-    speed:      400 //default 300.          Set animation speed
     klass:      'class'                     Set class for lazybox. <div id='lazybox' class='class'>...</div>
     //confirmation options
     cancelText:   //default 'Cancel'. Cancel button text
@@ -174,15 +164,16 @@ Events
 
     $.lazybox.show()
     $.lazybox.close()
-    $.lazybox.center()
 
 Browser Compatibility
 ---------------------
 
-ie7 +
+IE10 +
 Chrome
 Firefox
 Opera
 Safari
+
+### If you want to support IE < 9 you have to use version 0.2.*.
 
 Copyright© Alex Galushka
