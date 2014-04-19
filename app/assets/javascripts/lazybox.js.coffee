@@ -57,14 +57,17 @@
     box = $('#lazybox')
     overlay = $('#lazy_overlay')
     close = $('#lazy_close')
-    box.click (e) -> e.stopPropagation()
     if options.klass then box.attr('class', options.klass) else box.removeClass()
     if options.onTop then overlay.addClass('top') else overlay.removeClass('top')
     if options.close
       if options.closeImg then close.addClass('img') else close.removeClass('img')
     else
       close.removeClass()
-    if options.modal then overlay.unbind() else overlay.bind 'click', -> $.lazybox.close()
+    if options.modal
+      overlay.unbind()
+    else
+      overlay.bind 'click', (e) ->
+        $.lazybox.close() if e.target == @
     $(document).keyup (e) -> $.lazybox.close() if e.keyCode == 27 and options.esc
     box.on 'click', '#lazy_close, .lazy_buttons a.cancel', (e) ->
       $.lazybox.close()
