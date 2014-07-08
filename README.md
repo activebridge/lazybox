@@ -108,7 +108,7 @@ $(document).ready(function() {
 });
 ```
 
-If there are more than one link to image you can click on image in the lazybox to show the next one
+If there are more than one link to image you can click on image in the lazybox to show the next one (version < 0.2.6)
 
 ```haml
 = link_to image.url, rel: :lazybox do
@@ -141,6 +141,20 @@ Style your close:
   height: 32px;
   top: -17px;
   right: -17px;
+}
+```
+
+We can use lazybox with `turbolinks` to show page loading spinner:
+
+```coffeescript
+  $(document).on 'page:fetch', -> $.lazybox("<i class='icon-orange'></i>", { klass: 'spinner', close: false, esc: false })
+```
+
+```css
+#lazybox.spinner {
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 ```
 
