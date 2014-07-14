@@ -158,6 +158,22 @@ We can use lazybox with `turbolinks` to show page loading spinner:
 }
 ```
 
+Turbolinks spinner
+_
+
+```coffee
+  $(document).on 'page:fetch', -> $.lazybox("<i class='fa fa-spinner fa-spin'>", { klass: 'spinner', close: false, esc: false })
+  $(document).on 'page:change', -> $.lazybox.close()
+```
+
+```scss
+  #lazybox.spinner {
+    background: transparent;
+    box-shadow: none;
+    .fa-spinner { font-size: 128px; }
+  }
+```
+
 Options
 -------
 

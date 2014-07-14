@@ -23,7 +23,7 @@
       setTimeout (-> overlay.addClass('visible')), 1
       close.addClass('visible') if options.close && !box.hasClass('visible')
 
-    close: -> overlay.removeClass('visible')
+    close: -> overlay.removeClass('visible') if overlay
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
