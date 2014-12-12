@@ -76,14 +76,11 @@ describe 'lazybox', ->
     it 'has cancel button with class specified in settings', ->
       $.lazybox.settings = { cancelClass: 'cancel', cancelText: 'cancel' }
       $.lazybox.confirm(element)
-      expect($('#lazybox .lazy_buttons a.cancel')).toHaveText('cancel')
+      expect($('#lazybox .lazy_buttons .cancel')).toHaveText('cancel')
 
   describe 'init', ->
 
     describe 'overlay element', ->
-      it 'exists', ->
-        $.lazybox('')
-        expect($('body')).toContain('#lazy_overlay')
 
       it 'is visible', ->
         $.lazybox('')
@@ -100,17 +97,10 @@ describe 'lazybox', ->
         expect($('#lazybox')).not.toHaveClass('test')
 
     describe 'close element', ->
-      it 'should exist', ->
-        $.lazybox('')
-        expect($('#lazybox')).toContain('#lazy_close')
-
-      it 'has img class', ->
-        $.lazybox('', { closeImg: true })
-        expect($('#lazy_close')).toHaveClass('img')
 
       it 'has close event binded', ->
         $('#lazy_close').click()
-        expect($('#lazy_overlay')).not.toHaveClass('visible')
+        expect($('#lazy_overlay')).not.toHaveClass('active')
 
       it 'is hidden', ->
         $.lazybox('', { close: false })

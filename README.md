@@ -12,6 +12,11 @@ LazyBox implemented using only css and jquery without images.
 This is high perfomance modal dialogs. All unpacked files take only 5 kb.
 This is simplest solution for popup windows and custom confirmation dialogs.
 
+Upgrade to 1.1.0
+-
+
+After you upgrate the lazybox to 1.1.0 version you should add `render_lazybox` helper to your layout.
+
 Installing
 ----------
 
@@ -23,10 +28,46 @@ gem 'lazybox'
 
 Then run `bundle install` to update your application's bundle.
 
+Add to your layout helper `render_lazybox`:
+
+```slim
+  ...
+    render_lazybox
+  body
+html
+```
+
 Include in your `application.css`:
 
-```css
- *= require lazybox
+```scss
+ @include 'lazybox';
+```
+
+ There are a lot of variables you can customise:
+
+```scss
+$lazy-transition: .3s;
+$lazy-z-index:    1000;
+$lazy-overlay:    rgba(black, .7);
+$lazy-bg:         white;
+$lazy-border:     1px solid #ccc;
+$lazy-shadow:     0 1px 5px #333;
+$lazy-padding:    20px;
+$lazy-start:      scale(.7);
+$lazy-end:        scale(1);
+$lazy-close:      '×';
+```
+
+Use `$lazy-start` and `$lazy-end` to contol the animation, `$lazy-close` to set close image.
+
+You should set the variable before you include the `lazybox`
+
+```scss
+  $lazy-start:      rotate(180);
+  $lazy-end:        rotate(0);
+  $lazy-close:      url(url-to-image);
+
+  @include 'lazybox';
 ```
 
 And in `application.js`:
@@ -90,7 +131,7 @@ $.lazybox.settings = {cancelClass: "button gray", submitClass: 'button gray', ov
 or instance settings
 
 ```javascript
-$.lazybox("<div>It works!</div>",{onTop: true, opacity: 0.7, modal: false})
+$.lazybox("<div>It works!</div>",{modal: true, close: false})
 ```
 
 ###Images
@@ -104,7 +145,7 @@ Include in your `app/assets/javascripts/application.js`:
 $(document).ready(function() {
   $('a[rel*=lazybox]').lazybox();
   // or with options
-  $('a[rel*=lazybox]').lazybox({overlay: true, esc: true, close: true, modal: true, klass: 'class'});
+  $('a[rel*=lazybox]').lazybox({esc: true, close: true, modal: true, klass: 'class'});
 });
 ```
 
@@ -115,33 +156,6 @@ If there are more than one link to image you can click on image in the lazybox t
   = image_tag image.url, height: 100
 = link_to image2.url, rel: :lazybox do
   = image_tag image2.url, height: 100
-```
-
-Custom close image
-------------------
-
-Set 'closeImg' option to true.
-
-`application.js`:
-
-```javascript
-$(document).ready(function() {
-  $('.images a').lazybox({closeImg: true});
-});
-```
-
-Style your close:
-
-`application.css`
-
-```css
-#lazybox_close.img {
-  background: url('close.png') no-repeat;
-  width: 32px;
-  height: 32px;
-  top: -17px;
-  right: -17px;
-}
 ```
 
 We can use lazybox with `turbolinks` to show page loading spinner:
@@ -174,14 +188,25 @@ Turbolinks spinner
   }
 ```
 
+Display on page load
+-
+
+You can show lazybox with some content on page load. To do this you should `content_for` helper:
+
+`index.haml`
+
+```haml
+content_for :lazybox do
+  This text appears on page load
+```
+
+
 Options
 -------
 
     esc:        true|false //default true.  Close lazybox on esc press
     close:      true|false //default true.  Show close lazybox button
     modal:      true|false //default true.  Close lazybox on overlay click
-    closeImg:   true|false //default false. Use image for close link
-    onTop:      true|false //default false. Show lazybox on top instead of on center. It will use slide animation instead of fade.
     klass:      'class'                     Set class for lazybox. <div id='lazybox' class='class'>...</div>
     //confirmation options
     cancelText:   //default 'Cancel'. Cancel button text
@@ -198,7 +223,7 @@ Events
 Browser Compatibility
 ---------------------
 
-IE10 +
+IE9 +
 Chrome
 Firefox
 Opera
