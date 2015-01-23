@@ -32,7 +32,7 @@ Add to your layout helper `render_lazybox`:
 
 ```slim
   ...
-    render_lazybox
+    render_lazybox(active: true)
   body
 html
 ```
