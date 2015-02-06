@@ -6,11 +6,12 @@ module Lazybox
   module Helper
 
     def render_lazybox(options = {})
-      content_tag(:div, '', id: :lazy_overlay, class: ('active' if options[:active] && content_for?(:lazybox))) +
+      content_tag(:div, '', id: :lazy_overlay, class: ('active' if content_for?(:lazybox))) do
         content_tag(:div, id: :lazybox) do
-        button_tag('', id: :lazy_close, class: :visible) +
+          button_tag('', id: :lazy_close, class: :visible) +
           content_tag(:div, id: :lazy_body) do
-          content_for(:lazybox)
+            content_for(:lazybox)
+          end
         end
       end
     end

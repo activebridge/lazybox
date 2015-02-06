@@ -11,6 +11,7 @@ $lazy-close:      '×' !default;
 
 #lazy_overlay {
   visibility: hidden;
+  text-align: center;
   z-index: $lazy-z-index;
   background: $lazy-overlay;
   bottom: 0;
@@ -20,30 +21,32 @@ $lazy-close:      '×' !default;
   top: 0;
   opacity: 0;
   transition: opacity $lazy-transition, visibility $lazy-transition;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
   &.active {
     visibility: visible;
     opacity: 1;
-    + #lazybox {
-      visibility: visible;
-      transform: translate(-50%, -50%) $lazy-end;
-      opacity: 1;
-    }
+    #lazybox { transform: $lazy-end; }
+  }
+  * {
+    visibility: inherit;
   }
 }
 
 #lazybox {
-  visibility: hidden;
-  opacity: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) $lazy-start;
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
+  transform: $lazy-start;
   background-color: $lazy-bg;
   border: $lazy-border;
   box-shadow: $lazy-shadow;
   padding: $lazy-padding;
-  position: fixed;
   box-sizing: border-box;
-  z-index: $lazy-z-index + 1;
   overflow: auto;
   max-height: 100vh;
   max-width: 100vw;
@@ -51,9 +54,7 @@ $lazy-close:      '×' !default;
   &.confirm { max-width: 300px; }
   .lazy_buttons { margin-top: 15px; text-align: right; }
   .lazy-img { display: block; }
-  #lazy_body {
-    position: relative;
-  }
+  #lazy_body { position: relative; }
 }
 
 #lazy_close {

@@ -51,7 +51,8 @@
     options = $.extend {}, defaults, $.lazybox.settings, options
     $('#lazybox').attr('class', options.klass)
     $('#lazy_close').toggleClass('visible', options.close)
-    $('#lazy_overlay').one 'click', $.lazybox.close unless options.modal
+    $(document).on 'click', '#lazy_overlay', (e) ->
+      $.lazybox.close() if !options.modal && e.target == $('#lazy_overlay')[0]
     $(document).on 'keyup.lazy', (e) ->
       if e.keyCode == 27 and options.esc
         $.lazybox.close()
