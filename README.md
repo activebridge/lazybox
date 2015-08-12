@@ -223,11 +223,11 @@ Events
 Browser Compatibility
 ---------------------
 
-IE9 +
-Chrome
-Firefox
-Opera
-Safari
+![ie9](http://browserbadge.com/ie/9/75px)
+![chrome](http://browserbadge.com/chrome/75px)
+![safari](http://browserbadge.com/safari/5/75px)
+![firefox](http://browserbadge.com/firefox/75px)
+![opera](http://browserbadge.com/opera/75px)
 
 ### If you want to support IE < 9 you have to use version 0.2.*.
 
