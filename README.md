@@ -79,7 +79,7 @@ And in `application.js`:
 Usage
 -----
 
-###Remote pages
+### Remote pages
 Usual remote link:
 
 ```haml
@@ -112,7 +112,7 @@ $.lazybox.close()
 window.location.reload()
 ```
 
-###Confirmations
+### Confirmations
 
 You can replace standard rails confirmations with lazybox
 
@@ -134,7 +134,7 @@ or instance settings
 $.lazybox("<div>It works!</div>",{modal: true, close: false})
 ```
 
-###Images
+### Images
 
 ```haml
 - link_to 'Image', image.url, rel: :lazybox
